@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           targetNamespace="http://www.taotesting.com/xsd/gloomRatv1p0" 
+           xmlns="http://www.taotesting.com/xsd/gloomRatv1p0"
+           elementFormDefault="qualified">
+           
+    <!-- Non-empty string type definition. -->
+    <xs:simpleType name="nonEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- RATRequest type definition. -->
+    <xs:complexType name="RATRequest">
+        <xs:sequence>
+            <xs:element name="sessionID" type="nonEmptyString" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- RATResponse type definition. -->
+    <xs:complexType name="RATResponse">
+        <xs:sequence>
+            <xs:element name="sessionID" type="nonEmptyString" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- InitRequest extends RATRequest type definition. -->
+    <xs:complexType name="InitRequest">
+        <xs:complexContent>
+            <xs:extension base="RATRequest">
+                <xs:sequence>
+                    <xs:element name="candidateID" type="nonEmptyString" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <!-- InitResponse extends RATResponse type definition. -->
+    <xs:complexType name="InitResponse">
+        <xs:complexContent>
+            <xs:extension base="RATResponse">
+                <xs:sequence>
+                    <xs:element name="nextItemID" type="nonEmptyString" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <!-- NextRequest extends RATRequest type definition. -->
+    <xs:complexType name="NextRequest">
+        <xs:complexContent>
+            <xs:extension base="RATRequest">
+                <xs:sequence>
+                    <xs:element name="itemID" type="nonEmptyString" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="score" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="response" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <!-- NextResponse extends RATResponse type definition. -->
+    <xs:complexType name="NextResponse">
+        <xs:complexContent>
+            <xs:extension base="RATResponse">
+                <xs:sequence>
+                    <!-- Might be empty to indicate end of test. -->
+                    <xs:element name="nextItemID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <!-- Map elements with custom types. -->
+    <xs:element name="initRequest" type="InitRequest"/>
+    <xs:element name="initResponse" type="InitResponse"/>
+    <xs:element name="nextRequest" type="NextRequest"/>
+    <xs:element name="nextResponse" type="NextResponse"/>
+</xs:schema>

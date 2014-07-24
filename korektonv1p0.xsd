@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           targetNamespace="http://www.taotesting.com/xsd/korektonv1p0" 
+           xmlns="http://www.taotesting.com/xsd/korektonv1p0"
+           elementFormDefault="qualified">
+           
+    <!-- Non-empty string type -->
+    <xs:simpleType name="nonEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- ScoreItemRequest type definition. -->
+    <xs:element name="scoreItemRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="itemID" type="nonEmptyString" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="response" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- ScoreItemResponse type definition. -->
+    <xs:element name="scoreItemResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="score" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
